@@ -1,0 +1,15 @@
+version: '3.7'
+
+services:
+    application:
+        build: .
+        container_name: qapi_backend
+        ports:
+            - 8080:8080
+        networks: 
+            - qapi_backend
+
+# if time allow do a database persistence
+
+networks: 
+    qapi_backend:
