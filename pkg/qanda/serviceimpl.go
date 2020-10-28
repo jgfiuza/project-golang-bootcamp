@@ -92,6 +92,7 @@ func (q *inMemoryQuestionService) Delete(ctx context.Context, questionID string)
 
 // *** ANSWER SERVICE ***
 // TODO: substitute for a real life RDBMS
+// TODO: implement version control
 // Makes an inmemory question service that provides the interfaces methods
 type inMemoryAnswerService struct {
 	sync.RWMutex
@@ -127,12 +128,25 @@ func (a *inMemoryAnswerService) GetOneByQuestion(ctx context.Context, questionID
 	a.Lock()
 	defer a.Unlock()
 
-	// var answer Answer
+	// TODO: implement an algorithm that returns the last version only
+	for _, ans := range a.m {
+		if ans.QuestionID == questionID {
+			return ans, nil
+		}
+	}
 
 	return Answer{}, nil
 }
 
 func (a *inMemoryAnswerService) Delete(ctx context.Context, answerID string) error {
+	a.Lock()
+	defer a.Unlock()
+
+	if _, ok := a.m[answerID]; !ok {
+		return ErrNotFound
+	}
+
+	delete(a.m, answerID)
 
 	return nil
 }
