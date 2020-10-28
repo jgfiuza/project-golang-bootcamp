@@ -10,6 +10,7 @@ type Question struct {
 
 // Answer is the model for the 'a' part on q&a
 type Answer struct {
+	ID         string `json:"id"`
 	QuestionID string `json:"question_id"`
 	Body       string `json:"body"`
 	CreatorID  string `json:"created_by"`
