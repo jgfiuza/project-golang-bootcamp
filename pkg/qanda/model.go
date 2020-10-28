@@ -5,13 +5,14 @@ type Question struct {
 	ID        string `json:"id"`
 	Title     string `json:"title"`
 	Body      string `json:"body"`
-	CreatorID string `json:"created_by"`
+	CreatorID string `json:"question_by"`
 }
 
 // Answer is the model for the 'a' part on q&a
 type Answer struct {
 	ID         string `json:"id"`
-	QuestionID string `json:"question_id"`
 	Body       string `json:"body"`
-	CreatorID  string `json:"created_by"`
+	QuestionID string `json:"question_id"`
+	CreatorID  string `json:"answer_by"`
+	Version    int    `json:"version"`
 }
